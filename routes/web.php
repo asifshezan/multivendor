@@ -2,14 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AdminController;
 
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
+    Route::get('/', [AdminController::class, 'index' ])->name('admin.dashboard.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
