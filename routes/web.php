@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PartnerController;
-use App\Http\Controllers\BrandController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
     Route::get('/',[ AdminController::class, 'index' ])->name('admin.dashboard.index');
@@ -46,7 +47,19 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
         Route::get('/softdelete/{slug}', [BrandController::class, 'softdelete'])->name('brand.softdelete');
         Route::get('/delete/{slug}', [BrandController::class, 'delete'])->name('brand.delete');
         Route::get('/suspend/{slug}', [BrandController::class, 'suspend'])->name('brand.suspend');
+    });
 
+
+    Route::group(['prefix' => 'product'], function(){
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('/', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/show/{slug}', [ProductController::class, 'show'])->name('product.show');
+        Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::put('/update/{slug}', [ProductController::class, 'update'])->name('product.update');
+        Route::get('/softdelete/{slug}', [ProductController::class, 'softdelete'])->name('product.softdelete');
+        Route::get('/delete/{slug}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::get('/suspend/{slug}', [ProductController::class, 'suspend'])->name('product.suspend');
     });
 });
 
