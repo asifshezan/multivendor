@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ManageController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
     Route::get('/',[ AdminController::class, 'index' ])->name('admin.dashboard.index');
@@ -74,6 +76,32 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
         Route::get('/softdelete/{slug}', [BannerController::class, 'softdelete'])->name('banner.softdelete');
         Route::get('/delete/{slug}', [BannerController::class, 'delete'])->name('banner.delete');
         Route::get('/suspend/{slug}', [BannerController::class, 'suspend'])->name('banner.suspend');
+    });
+
+
+    // <<===== BASIC INFO ROUTE LIST ======>>
+    Route::get('/basic-info',[ ManageController::class, 'basic_index' ])->name('manage.basic.index');
+    Route::post('/basic-info',[ ManageController::class, 'basic_update' ])->name('manage.basic.update');
+
+    // <<===== CONTACT INFO ROUTE LIST ======>>
+    Route::get('/contact-info',[ ManageController::class, 'contact_index' ])->name('manage.contact.index');
+    Route::post('/contact-info',[ ManageController::class, 'contact_update' ])->name('manage.contact.update');
+
+    // <<===== SOCIAL MEDIA ROUTE LIST ======>>
+    Route::get('/social-media',[ ManageController::class, 'social_index' ])->name('manage.social.index');
+    Route::post('/social-media',[ ManageController::class, 'socail_update' ])->name('manage.social.update');
+
+
+    Route::group(['prefix' => 'category'], function(){
+        Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('/', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/show/{slug}', [CategoryController::class, 'show'])->name('category.show');
+        Route::get('/edit/{slug}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('/update/{slug}', [CategoryController::class, 'update'])->name('category.update');
+        Route::get('/softdelete/{slug}', [CategoryController::class, 'softdelete'])->name('category.softdelete');
+        Route::get('/delete/{slug}', [CategoryController::class, 'delete'])->name('category.delete');
+        Route::get('/suspend/{slug}', [CategoryController::class, 'suspend'])->name('category.suspend');
     });
 });
 
