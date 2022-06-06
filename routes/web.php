@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BannerController;
 
 Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
     Route::get('/',[ AdminController::class, 'index' ])->name('admin.dashboard.index');
@@ -60,6 +61,19 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
         Route::get('/softdelete/{slug}', [ProductController::class, 'softdelete'])->name('product.softdelete');
         Route::get('/delete/{slug}', [ProductController::class, 'delete'])->name('product.delete');
         Route::get('/suspend/{slug}', [ProductController::class, 'suspend'])->name('product.suspend');
+    });
+
+
+    Route::group(['prefix' => 'banner'], function(){
+        Route::get('/', [BannerController::class, 'index'])->name('banner.index');
+        Route::get('/create', [BannerController::class, 'create'])->name('banner.create');
+        Route::post('/', [BannerController::class, 'store'])->name('banner.store');
+        Route::get('/show/{slug}', [BannerController::class, 'show'])->name('banner.show');
+        Route::get('/edit/{slug}', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::put('/update/{slug}', [BannerController::class, 'update'])->name('banner.update');
+        Route::get('/softdelete/{slug}', [BannerController::class, 'softdelete'])->name('banner.softdelete');
+        Route::get('/delete/{slug}', [BannerController::class, 'delete'])->name('banner.delete');
+        Route::get('/suspend/{slug}', [BannerController::class, 'suspend'])->name('banner.suspend');
     });
 });
 
