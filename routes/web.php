@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\BrandController;
 
 Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
     Route::get('/',[ AdminController::class, 'index' ])->name('admin.dashboard.index');
@@ -32,6 +33,20 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
         Route::get('/softdelete/{slug}', [ PartnerController::class, 'softdelete'])->name('partner.softdelete');
         Route::get('/delete/{slug}', [ PartnerController::class, 'delete'])->name('partner.delete');
         Route::get('/suspend/{slug}',[ UserController::class, 'suspend' ])->name('user.suspend');
+    });
+
+
+    Route::group(['prefix' => 'brand'], function (){
+        Route::get('/', [BrandController::class, 'index'])->name('brand.index');
+        Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
+        Route::post('/', [BrandController::class, 'store'])->name('brand.store');
+        Route::get('/show/{slug}', [BrandController::class, 'show'])->name('brand.show');
+        Route::get('/edit/{slug}', [BrandController::class, 'edit'])->name('brand.edit');
+        Route::put('/update/{slug}', [BrandController::class, 'update'])->name('brand.update');
+        Route::get('/softdelete/{slug}', [BrandController::class, 'softdelete'])->name('brand.softdelete');
+        Route::get('/delete/{slug}', [BrandController::class, 'delete'])->name('brand.delete');
+        Route::get('/suspend/{slug}', [BrandController::class, 'suspend'])->name('brand.suspend');
+
     });
 });
 
