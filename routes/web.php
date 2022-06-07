@@ -27,17 +27,17 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth'], function() {
     });
 
 
-    Route::group(['prefix' => 'partner'], function(){
-        Route::get('/', [ PartnerController::class, 'index'])->name('partner.index');
-        Route::get('/create', [ PartnerController::class, 'create'])->name('partner.create');
-        Route::post('/', [ PartnerController::class, 'store'])->name('partner.store');
-        Route::get('/show/{slug}', [ PartnerController::class, 'show'])->name('partner.show');
-        Route::get('/edit/{slug}', [ PartnerController::class, 'edit'])->name('partner.edit');
-        Route::put('/update/{slug}', [ PartnerController::class, 'update'])->name('partner.update');
-        Route::get('/softdelete/{slug}', [ PartnerController::class, 'softdelete'])->name('partner.softdelete');
-        Route::get('/delete/{slug}', [ PartnerController::class, 'delete'])->name('partner.delete');
-        Route::get('/suspend/{slug}',[ UserController::class, 'suspend' ])->name('user.suspend');
+    Route::group(['prefix' => 'partner'], function() {
+        Route::get('/',[ PartnerController::class, 'index' ])->name('partner.index');
+        Route::get('/create',[ PartnerController::class, 'create' ])->name('partner.create');
+        Route::post('/',[ PartnerController::class, 'store' ])->name('partner.store');
+        Route::get('/show/{slug}',[ PartnerController::class, 'show' ])->name('partner.show');
+        Route::get('/edit/{slug}',[ PartnerController::class, 'edit' ])->name('partner.edit');
+        Route::put('/update/{slug}',[ PartnerController::class, 'update' ])->name('partner.update');
+        Route::get('/softdelete/{slug}',[ PartnerController::class, 'softdelete' ])->name('partner.softdelete');
+        Route::get('/delete/{slug}',[ PartnerController::class, 'destroy' ])->name('partner.destroy');
     });
+
 
 
     Route::group(['prefix' => 'brand'], function (){

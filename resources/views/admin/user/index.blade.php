@@ -21,7 +21,7 @@
         <div class="card border border-primary">
             <div class="card-header bg-transparent border-primary d-flex justify-content-between">
                 <h5 class="my-0 text-primary align-middle"><i class="mdi mdi-bullseye-arrow me-3"></i>All Users </h5>
-                <a href="" class="btn btn-sm btn-primary waves-effect waves-light">
+                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary waves-effect waves-light">
                     <i class="bx bx-list-plus font-size-20 align-middle me-2"></i> Create User
                 </a>
             </div>

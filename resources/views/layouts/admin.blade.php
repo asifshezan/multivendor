@@ -222,12 +222,16 @@
 
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow">
-                                    <i data-feather="file-text"></i>
-                                    <span data-key="t-pages">Partner</span>
+                                    <i data-feather="grid"></i>
+                                    <span data-key="t-seller">Partner</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="pages-starter.html" data-key="t-starter-page">All Partner</a></li>
-                                    <li><a href="pages-maintenance.html" data-key="t-maintenance">Add Partner</a></li>
+                                    <li>
+                                        <a href="{{ route('partner.index') }}">
+                                            <span data-key="t-calendar">All Partner</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="{{ route('partner.create') }}">Add Partner</a></li>
                                 </ul>
                             </li>
 
