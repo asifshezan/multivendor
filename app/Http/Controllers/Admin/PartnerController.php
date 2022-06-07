@@ -22,4 +22,8 @@ class PartnerController extends Controller
         $all = Partner::where('partner_status',1)->orderBy('partner_id','DESC')->get();
         return view('admin.partner.index', compact('all'));
     }
+
+    public function create(){
+        return view('admin.partner.create');
+    }
 }
