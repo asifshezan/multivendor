@@ -49,15 +49,16 @@ class PartnerController extends Controller
             'created_at' => Carbon::now()->toDateTimeString()
         ]);
 
-        // if($request->hasFile('partner_logo')){
-        //     $image = $request->file('partner_logo');
-        //     $imageName = time() . '-' . rand(10000,1000000) . $image->getClientOriginalExtension();
-        //     Image::make('$image')->resize(150,150)->save('uploads/partner/' . $imageName);
+        if($request->hasFile('partner_logo')){
+            $image = $request->file('partner_logo');
+            $imageName = $insert . time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(200,200)->save('uploads/partner/' . $imageName);
 
-        //     Partner::where('partner_id',$insert)->update([
-        //         'partner_logo' => $imageName,
-        //         'created_at' => Carbon::now()->toDateTimeString()
-        //     ]);
+            Partner::where('partner_id',$insert)->update([
+                'partner_logo' => $imageName,
+                'created_at' => Carbon::now()->toDateTimeString(),
+            ]);
+        }
 
             if($insert){
                 Session::flash('success','successfully insert partner');
@@ -69,3 +70,4 @@ class PartnerController extends Controller
 
         }
     }
+
