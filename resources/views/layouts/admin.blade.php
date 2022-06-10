@@ -475,9 +475,6 @@
         </div>
         <!-- /Right-bar -->
 
-        <!-- Right bar overlay-->
-        <div class="rightbar-overlay"></div>
-
         <!-- JAVASCRIPT -->
         <script src="{{asset('contents/admin')}}/libs/jquery/jquery.min.js"></script>
         <script src="{{asset('contents/admin')}}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -501,7 +498,4 @@
         <script src="{{asset('contents/admin')}}/js/custom.js"></script>
 
     </body>
-
-
-<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Jan 2022 09:08:26 GMT -->
 </html>

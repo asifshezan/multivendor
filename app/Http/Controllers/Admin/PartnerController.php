@@ -32,10 +32,10 @@ class PartnerController extends Controller
         $this->validate($request,[
             'partner_title' => 'required',
             'partner_url' => 'required',
-            // 'partner_logo' => 'required',
+            'partner_logo' => 'required',
         ],[
             'partner_title' => 'Please enter title',
-            // 'partner_logo' => 'Please enter logo',
+            'partner_logo' => 'Please enter logo',
         ]);
 
         $slug = Str::slug($request['partner_title']);
@@ -68,6 +68,52 @@ class PartnerController extends Controller
                 return redirect()->back();
             }
 
+        }
+
+        public function edit($slug){
+            $data = Partner::where('partner_status',1)->where('partner_slug',$slug)->firstOrFail();
+            return view('admin.partner.edit', compact('data'));
+        }
+
+        public function update(Request $request){
+            $id = $request->partner_id;
+            $this->validate($request,[
+                'partner_title' => 'required',
+                'partner_url' => 'required',
+            ],[
+                'partner_title' => 'Please enter title',
+                'partner_logo' => 'Please enter logo',
+            ]);
+
+            $editor = Auth::user()->id;
+            $slug = Str::slug($request['partner_title']);
+            $update = Partner::where('partner_id',$id)->update([
+            'partner_title' => $request['partner_title'],
+            'partner_slug' => $slug,
+            'partner_url' => $request['partner_url'],
+            'partner_order' => $request['partner_order'],
+            'partner_editor' => $editor,
+            'updated_at' => Carbon::now()->toDateTimeString()
+            ]);
+
+            if($request->hasFile('partner_logo')){
+                $image = $request->file('partner_logo');
+                $imageName = $id . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(200,200)->save('uploads/partner/' . $imageName);
+
+                Partner::where('partner_id',$id)->update([
+                    'partner_logo' => $imageName,
+                    'updated_at' => Carbon::now()->toDateTimeString(),
+                ]);
+            }
+
+            if($update){
+                Session::flash('success','Successfully update partner info.');
+                return redirect()->back();
+            }else{
+                Session::flash('error','Opps! Failed update.');
+                return redirect()->back();
+            }
         }
     }
 

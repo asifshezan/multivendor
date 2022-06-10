@@ -62,7 +62,7 @@
                                             <li>
                                                 <button class="dropdown-item" style="width: 100%" type="button"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#partnerShow{{ $data['partner_id'] }}"><i
+                                                    data-bs-target="#partnerShow{{ $data['partner_slug'] }}"><i
                                                         class="bx bx-show-alt label-icon"></i> Show</button>
                                             </li>
                                             <li>
