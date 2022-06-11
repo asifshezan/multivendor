@@ -60,10 +60,8 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <li>
-                                                <button class="dropdown-item" style="width: 100%" type="button"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#partnerShow{{ $data['partner_slug'] }}"><i
-                                                        class="bx bx-show-alt label-icon"></i> Show</button>
+                                                <a href="{{ route('partner.show',$data->partner_slug) }}" class="dropdown-item"><i
+                                                        class="bx bx-show-alt label-icon"></i> Show</a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('partner.edit',$data['partner_slug']) }}"

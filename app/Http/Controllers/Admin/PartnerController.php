@@ -28,6 +28,11 @@ class PartnerController extends Controller
         return view('admin.partner.create');
     }
 
+    public function show($slug){
+        $data = Partner::where('partner_status',1)->where('partner_slug',$slug)->firstOrFail();
+        return view('admin.partner.show', compact('data'));
+    }
+
     public function store(Request $request){
         $this->validate($request,[
             'partner_title' => 'required',
