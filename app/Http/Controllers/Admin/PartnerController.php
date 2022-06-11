@@ -115,5 +115,20 @@ class PartnerController extends Controller
                 return redirect()->back();
             }
         }
+
+        public function softdelete($slug){
+            $soft = Partner::where('partner_status',1)->where('partner_slug',$slug)->update([
+                'partner_status' => 0,
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ]);
+
+            if($soft){
+                Session::flash('success','Successfully SoftDelete Partner.');
+                return redirect()->back();
+            }else{
+                Session::flash('error','Opps! Failed to SoftDelete.');
+                return redirect()->back();
+            }
+        }
     }
 
