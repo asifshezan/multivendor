@@ -122,9 +122,24 @@ class BannerController extends Controller
 
         if($update){
             Session::flash('success','Successfully updated Banner.');
-            return view('admin.banner.show');
+            return redirect()->back();
         }else{
             Session::flash('error','Opps!! Failed to Updated Banner.');
+            return redirect()->back();
+        }
+    }
+
+    public function softdelete($slug){
+        $soft = Banner::where('banner_slug',$slug)->where('banner_status',1)->update([
+            'banner_status' => 0,
+            'updated_at' => Carbon::now()->toDateTimeString(),
+        ]);
+
+        if($soft){
+            Session::flash('success','Successfully SoftDelete Partner.');
+            return redirect()->back();
+        }else{
+            Session::flash('error','Opps! Failed to SoftDelete.');
             return redirect()->back();
         }
     }
