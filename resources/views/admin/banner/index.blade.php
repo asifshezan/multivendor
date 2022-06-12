@@ -5,12 +5,14 @@
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0 font-size-18">Banner</h4>
+
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Banner</a></li>
                     <li class="breadcrumb-item active">All Banner</li>
                 </ol>
             </div>
+
         </div>
     </div>
 </div>
@@ -37,17 +39,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($banners as $data)
+                            @foreach ($all as $data)
                             <tr>
                                 <td class="text-center">
                                     @if ($data['banner_image'])
-                                    <img id="banner_image" style="width:100px"
-                                    src="{{ asset('uploads/banner/'.$data['banner_image']) }}"
-                                    alt="Banner Image">
+                                    <img id="banner_image" style="width:50px"
+                                    src="{{ asset('uploads/banner/'.$data['banner_image']) }}" alt="banner_image">
                                     @else
-                                    <img id="banner_image" style="width:100px"
-                                    src="{{ asset('uploads/no_image.png') }}"
-                                    alt="Banner Image">
+                                    <img id="banner_image" style="width:50px"
+                                    src="{{ asset('uploads/no_image.png') }}" alt="banner_image">
                                     @endif
                                 </td>
                                 <td>{{ $data['banner_title'] }}</td>
@@ -62,9 +62,8 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <li>
-                                                <a href="{{ route('banner.show',$data['banner_slug']) }}"
-                                                    class="dropdown-item"><i class=" bx bx-edit-alt label-icon"></i>
-                                                    Show</a>
+                                                <a href="{{ route('banner.show',$data->banner_slug) }}" class="dropdown-item"><i
+                                                        class="bx bx-show-alt label-icon"></i> Show</a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('banner.edit',$data['banner_slug']) }}"
@@ -72,67 +71,15 @@
                                                     Edit</a>
                                             </li>
                                             <li>
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm{{ $data['banner_slug'] }}">
-                                                    <i class=" bx bxs-trash-alt label-icon"></i> Delete</a>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm{{ $data['banner_slug'] }}"><i class=" bx bxs-trash-alt label-icon"></i> Delete</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
 
-                            {{-- Show Modal --}}
-                            <div id="bannerShow{{ $data['banner_id'] }}" class="modal fade" tabindex="-1"
-                                aria-labelledby="myModalLabel" data-bs-scroll="true" aria-hidden="true"
-                                style="display: none;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-primary">
-                                            <h5 class="modal-title text-light" id="myModalLabel">Banner Show</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body m-auto">
-                                            <div class="row form-group">
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_title">Banner Title</label>
-                                                    <input disabled class="form-control" type="text" name="banner_title" value="{{ $data['banner_title'] }}">
-                                                </div>
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_mid_title">Banner Middle Title</label>
-                                                    <input disabled class="form-control" type="text" name="banner_mid_title" value="{{ $data['banner_mid_title'] }}">
-                                                </div>
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_subtitle">Banner Sub Title</label>
-                                                    <input disabled class="form-control" type="text" name="banner_subtitle" value="{{ $data['banner_subtitle'] }}">
-                                                </div>
 
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_button">Banner Button Name</label>
-                                                    <input disabled class="form-control" type="text" name="banner_button" value="{{ $data['banner_button'] }}">
-                                                </div>
 
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_url">Banner Url</label>
-                                                    <input disabled class="form-control" type="text" name="banner_url" value="{{ $data['banner_url'] }}">
-                                                </div>
-
-                                                <div class="col-md-6 my-2">
-                                                    <label for="banner_order">Banner Order</label>
-                                                    <input disabled class="form-control" type="number" name="banner_order" value="{{ $data['banner_order'] }}">
-                                                </div>
-
-                                                <div class="col-md-12 my-2 d-flex">
-                                                    <img style="width: 200px" class="m-auto" src="{{ asset('uploads/banner/'.$data['banner_image']) }}" alt="Banner Image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary waves-effect"
-                                                data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div>
                             {{-- Delete Modal --}}
                             <div class="modal fade bs-example-modal-sm{{ $data['banner_slug'] }}" tabindex="-1" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -163,34 +110,34 @@
 
 @section('custom-css')
 <!-- DataTables -->
-<link href="{{ asset('backend') }}/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+<link href="{{ asset('contents/admin') }}/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet"
     type="text/css" />
-<link href="{{ asset('backend') }}/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+<link href="{{ asset('contents/admin') }}/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
     type="text/css" />
 
 <!-- Responsive datatable examples -->
-<link href="{{ asset('backend') }}/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+<link href="{{ asset('contents/admin') }}/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
     rel="stylesheet" type="text/css" />
 @endsection
 
 @section('custom-script')
 <!-- Required datatable js -->
-<script src="{{ asset('backend') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
-<script src="{{ asset('backend') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="{{ asset('backend') }}/libs/jszip/jszip.min.js"></script>
-<script src="{{ asset('backend') }}/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="{{ asset('backend') }}/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/jszip/jszip.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
 <!-- Responsive examples -->
-<script src="{{ asset('backend') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{ asset('backend') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('contents/admin') }}/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 <!-- Datatable init js -->
-<script src="{{ asset('backend') }}/js/pages/datatables.init.js"></script>
+<script src="{{ asset('contents/admin') }}/js/pages/datatables.init.js"></script>
 @endsection
