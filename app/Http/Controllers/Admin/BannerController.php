@@ -19,7 +19,7 @@ class BannerController extends Controller
     }
 
     public function index(){
-        $all = Banner::where('banner_status',1)->where('banner_id','DESC')->get();
+        $all = Banner::where('banner_status',1)->orderBy('banner_id','DESC')->get();
         return view('admin.banner.index', compact('all'));
     }
 
@@ -72,5 +72,12 @@ class BannerController extends Controller
             return redirect()->back();
         }
     }
+
+    public function show($slug){
+        $data = Banner::where('banner_status',1)->where('banner_slug',$slug)->firstOrFail();
+        return view('admin.banner.show', compact('data'));
+    }
+
+
 
 }

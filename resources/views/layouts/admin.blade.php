@@ -213,10 +213,10 @@
                                     <span data-key="t-authentication">Products</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="auth-login.html" data-key="t-login">Add New Products</a></li>
-                                    <li><a href="auth-register.html" data-key="t-register">All Product</a></li>
-                                    <li><a href="auth-recoverpw.html" data-key="t-recover-password">Category</a></li>
-                                    <li><a href="auth-lock-screen.html" data-key="t-lock-screen">Brand</a></li>
+                                    <li><a href="{{ route('product.create') }}" data-key="t-login">Add New Products</a></li>
+                                    <li><a href="{{ route('product.index') }}" data-key="t-register">All Product</a></li>
+                                    <li><a href="{{ route('category.index') }}" data-key="t-recover-password">Category</a></li>
+                                    <li><a href="{{ route('brand.index') }}" data-key="t-lock-screen">Brand</a></li>
                                 </ul>
                             </li>
 
