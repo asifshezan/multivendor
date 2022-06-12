@@ -78,6 +78,55 @@ class BannerController extends Controller
         return view('admin.banner.show', compact('data'));
     }
 
+    public function edit($slug){
+        $data = Banner::where('banner_status',1)->where('banner_slug',$slug)->firstOrFail();
+        return view('admin.banner.edit', compact('data'));
+    }
 
+    public function update(Request $request){
+        $id = $request->banner_id;
+        $this->validate($request,[
+            'banner_title' => ['required', 'string'],
+            'banner_mid_title' => ['required', 'string'],
+            'banner_subtitle' => ['required', 'string'],
+            'banner_order' => ['required', 'integer']
+        ],[
+            'banner_title.required' => 'Please Enter Banner Title',
+            'banner_order.required' => 'Please Enter Banner Order',
+        ]);
+
+        $slug = Str::slug($request->banner_title, '-');
+        $editor = Auth::user()->id;
+        $update = Banner::where('banner_id',$id)->update([
+            'banner_title' => $request['banner_title'],
+            'banner_mid_title' => $request['banner_mid_title'],
+            'banner_subtitle' => $request['banner_subtitle'],
+            'banner_button' => $request['banner_button'],
+            'banner_url' => $request['banner_url'],
+            'banner_order' => $request['banner_order'],
+            'banner_editor' => $editor,
+            'banner_slug' => $slug,
+            'updated_at' => Carbon::now()->toDateTimeString(),
+        ]);
+
+        if($request->hasFile('banner_image')){
+            $image = $request->file('banner_image');
+            $imageName = $id . time() . '-' . rand(100,1000) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(200,200)->save('uploads/banner/' . $imageName);
+
+            Banner::where('banner_id',$id)->update([
+                'banner_image' => $imageName,
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ]);
+        }
+
+        if($update){
+            Session::flash('success','Successfully updated Banner.');
+            return view('admin.banner.show');
+        }else{
+            Session::flash('error','Opps!! Failed to Updated Banner.');
+            return redirect()->back();
+        }
+    }
 
 }
