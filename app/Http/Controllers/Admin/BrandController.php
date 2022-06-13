@@ -104,7 +104,7 @@ class BrandController extends Controller
         ]);
         if($request->hasFile('brand_image')){
             $image = $request->file('brand_image');
-            $imageName = $id . time() . rand(1000,10000) . '-' . $image->getClientOriginalExtension();
+            $imageName = $id . time() . '-' . rand(100,1000) . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(200,200)->save('uploads/brand/' . $imageName);
 
             Brand::where('brand_id',$id)->update([
@@ -113,6 +113,20 @@ class BrandController extends Controller
             ]);
         }
         if($update){
+            Session::flash('success','successfully update partner');
+            return redirect()->back();
+        }else{
+            Session::flash('error','Opps! Failed to update.');
+            return redirect()->back();
+        }
+    }
+
+    public function softdelete($slug){
+        $soft = Brand::where('brand_slug',$slug)->where('brand_status',1)->update([
+            'brand_status' => 0,
+            'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
+        if($soft){
             Session::flash('success','successfully update partner');
             return redirect()->back();
         }else{
