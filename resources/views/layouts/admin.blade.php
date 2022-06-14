@@ -22,7 +22,10 @@
         <link href="{{asset('contents/admin')}}/css/icons.min.css" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="{{asset('contents/admin')}}/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
+        <!-- ckeditor -->
+        <script src="{{ asset('contents/admin') }}/libs/%40ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+        <!-- init js -->
+        <script src="{{ asset('contents/admin') }}/js/pages/form-editor.init.js"></script>
     </head>
 
     <body>
